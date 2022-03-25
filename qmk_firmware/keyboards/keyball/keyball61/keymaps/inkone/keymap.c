@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-
 #include "quantum.h"
 #include "keymap_german.h"
 
@@ -25,25 +24,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_universal(
-    KC_ESC   , KC_1     , KC_2     , KC_3     , KC_4     , KC_5     ,                                  KC_6     , KC_7     , KC_8     , KC_9     , KC_0     , KC_MINS  ,
-    KC_TAB   , KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                                  KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     , KC_LBRC  ,
-    KC_LCTL   , KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                                  KC_H     , KC_J     , KC_K     , KC_L     , KC_SCLN  , KC_QUOT  ,
-    KC_LSFT    , KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     , KC_RBRC  ,              KC_NUHS, KC_N     , KC_M     , KC_COMM  , KC_DOT   , DE_MINS  , KC_RSFT  ,
-    _______  , KC_LCTL  , KC_LALT  , MO(1),KC_LGUI,LT(2,KC_SPC),LT(3,KC_BTN1),    LT(4,KC_ENT),LT(2,KC_BSPC),LT(1,KC_LANG2),KC_RGUI, _______ , KC_RALT  , _______
+    KC_ESC   , DE_1     , DE_2     , DE_3     , DE_4     , DE_5     ,                                  DE_6     , DE_7     , DE_8     , DE_9     , DE_0     , KC_MINS  ,
+    KC_TAB   , DE_Q     , DE_W     , DE_E     , DE_R     , DE_T     ,                                  DE_Z     , DE_U     , DE_I     , DE_O     , DE_P     , KC_LBRC  ,
+    KC_LCTL   , DE_A     , DE_S     , DE_D     , DE_F     , DE_G     ,                                  DE_H     , DE_J     , DE_K     , DE_L     , KC_SCLN  , KC_QUOT  ,
+    KC_LSFT    , DE_Y     , DE_X     , DE_C     , DE_V     , DE_B     , KC_RBRC  ,              KC_NUHS, DE_N     , DE_M     , DE_COMM  , DE_DOT   , DE_MINS  , KC_RSFT  ,
+    _______  , KC_LCTL  , KC_LALT  , MO(4),KC_LGUI,LT(2,KC_SPC),LT(3,KC_BTN1),    LT(4,KC_ENT),LT(2,KC_BSPC),LT(1,KC_LANG2),KC_RGUI, _______ , KC_RALT  , _______
   ),
 
 //  [1] = LAYOUT_universal(
 //    S(KC_ESC), S(KC_1)  , KC_LBRC  , S(KC_3)  , S(KC_4)  , S(KC_5)  ,                             KC_EQL   , S(KC_6)  ,S(KC_QUOT), S(KC_8)  , S(KC_9)  ,S(KC_INT1),
 //    S(KC_DEL), S(KC_Q)  , S(KC_W)  , S(KC_E)  , S(KC_R)  , S(KC_T)  ,                                  S(KC_Y)  , S(KC_U)  , S(KC_I)  , S(KC_O)  , S(KC_P)  ,S(KC_INT3),
 //    S(KC_TAB), S(KC_A)  , S(KC_S)  , S(KC_D)  , S(KC_F)  , S(KC_G)  ,                                  S(KC_H)  , S(KC_J)  , S(KC_K)  , S(KC_L)  , KC_QUOT  , S(KC_2)  ,
-//    _______  , S(KC_Z)  , S(KC_X)  , S(KC_C)  , S(KC_V)  , S(KC_B)  ,S(KC_RBRC),           S(KC_NUHS), S(KC_N)  , S(KC_M)  ,S(KC_COMM), S(KC_DOT),S(KC_SLSH),S(KC_RSFT),
+//    _______  , S(KC_Z)  , S(KC_X)  , S(KC_C)  , S(KC_V)  , S(KC_B)  ,S(KC_RBRC),           S(KC_NUHS), S(KC_N)  , S(KC_M)  ,S(KC_COMM), S(KC_DOT),S(KC_SLSH),S(KC_RSFT),fffffffff
 //    _______  ,S(KC_LCTL),S(KC_LALT),S(KC_LGUI), _______  , _______  , _______  ,            _______  , _______  , _______  ,S(KC_RGUI), _______  , S(KC_RALT), _______
 //  ),
 [1] = LAYOUT_universal(
     KC_F1    ,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,                              KC_F7,    KC_F8,    KC_F9,    KC_F10,    KC_F11,    KC_F12,
     _______  ,    _______, _______,  _______ ,   _______,  _______,                             DE_CIRC,    DE_QUOT,    DE_GRV,    _______,    _______,   _______ ,
     _______  ,    DE_LABK, S(DE_LABK), DE_LPRN,    DE_RPRN, _______,                              DE_LABK,    DE_HASH,    DE_PLUS,    DE_MINS,    _______,    _______,
-    _______,    DE_PERC, DE_CIRC, DE_LBRC,   DE_RBRC, _______,  S(KC_8)  ,            S(KC_9)  , KC_PGDN  , _______  , _______  , _______  , _______  , _______  ,
+    _______,    DE_PERC, DE_CIRC, DE_LBRC,   DE_RBRC, _______,  S(KC_8)  ,          S(KC_9)  , KC_PGDN  , _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______   , _______  , _______  , _______  ,              _______  ,KC_DEL  , _______  , _______  , _______  , _______  , _______
   ),
 
@@ -70,7 +69,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______  , _______  , _______  , _______  , _______  , _______  ,     _______  ,        _______  , _______  , _______  , _______  , _______ , _______ , _______  ,
     _______  , _______  , _______  , _______  , _______  , _______  ,     _______  ,        _______  , _______  , _______  , _______  , _______ , _______ , _______
   ),
-
+[5] = LAYOUT_universal(
+    _______  , KC_F1    , KC_F2    , KC_F3    , KC_F4    , KC_F5    ,                                  KC_F6    , KC_F7    , KC_F8    , KC_F9    , KC_F10   , KC_F11   ,
+    _______  , DE_EXLM  , DE_AT    , DE_LCBR  , DE_RCBR  , DE_PIPE  ,                                  DE_QUOT  , DE_UDIA  , _______  , DE_ODIA  , DE_ASTR  , KC_F12   ,
+    KC_CAPS  , DE_ADIA  , DE_SS    , DE_LPRN  , DE_RPRN  , DE_GRV   ,                                  DE_DQUO  , DE_DLR   , _______  , DE_HASH  , DE_SCLN  , KC_CAPS  ,
+    _______  , DE_PERC  , DE_PLUS  , DE_LBRC  , DE_RBRC  , DE_TILD  , _______  ,            _______  , DE_AMPR  , DE_LABK  , DE_RABK  , _______  , DE_UNDS  , _______  ,
+    _______  , _______  , DE_CIRC  , _______  , _______  , _______  , KC_DEL   ,            KC_INS   , DE_EQL   , XXXXXXX  , XXXXXXX  , XXXXXXX  , DE_BSLS  , _______
+  ),
 };
 // clang-format on
 
