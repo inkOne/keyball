@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB   , DE_Q     , DE_W     , DE_E     , DE_R     , DE_T     ,                                  DE_Z     , DE_U     , DE_I     , DE_O     , DE_P     , KC_LBRC  ,
     KC_LCTL   , DE_A     , DE_S     , DE_D     , DE_F     , DE_G     ,                                  DE_H     , DE_J     , DE_K     , DE_L     , KC_SCLN  , KC_QUOT  ,
     KC_LSFT    , DE_Y     , DE_X     , DE_C     , DE_V     , DE_B     , KC_RBRC  ,              KC_NUHS, DE_N     , DE_M     , DE_COMM  , DE_DOT   , DE_MINS  , KC_RSFT  ,
-    _______  , KC_LCTL  , KC_LALT  , MO(4),KC_LGUI,LT(2,KC_SPC),LT(3,KC_BTN1),    LT(4,KC_ENT),LT(2,KC_BSPC),LT(1,KC_LANG2),KC_RGUI, _______ , KC_RALT  , _______
+    _______  , KC_LCTL  , KC_LALT  , MO(1),KC_LGUI,LT(2,KC_SPC),LT(3,KC_BTN1),    LT(4,KC_ENT),LT(2,KC_BSPC),LT(1,KC_LANG2),KC_RGUI, _______ , KC_RALT  , _______
   ),
 
 //  [1] = LAYOUT_universal(
