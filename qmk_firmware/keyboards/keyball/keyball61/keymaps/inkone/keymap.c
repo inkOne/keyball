@@ -18,7 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "quantum.h"
+#include "deferred_exec.h"
 #include "keymap_german.h"
+#include "rgblight/rgblight.h"
 
 
 // clang-format off
@@ -26,12 +28,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_universal(
     KC_ESC   , DE_1     , DE_2     , DE_3     , DE_4     , DE_5     ,                                 DE_6     , DE_7     , DE_8     , DE_9     , DE_0     , KC_MINS  ,
     KC_TAB   , DE_Q     , DE_W     , DE_E     , DE_R     , DE_T     ,                                  DE_Z     , DE_U     , DE_I     , DE_O     , DE_P     , KC_LBRC  ,
-    KC_LCTL   , DE_A     , DE_S     , DE_D     , DE_F     , DE_G     ,                                  DE_H     , DE_J     , DE_K     , DE_L     , KC_SCLN  , KC_QUOT  ,
+    KC_LCTL   , DE_A     , DE_S     , DE_D     , DE_F     , DE_G     ,                                  DE_H     , DE_J     , DE_K     , DE_L     ,LT(1,KC_SCLN)  , KC_QUOT ,
     KC_LSFT    , DE_Y     , DE_X     , DE_C     , DE_V     , DE_B     , LT(2,KC_RBRC)  ,              KC_NUHS, DE_N     , DE_M     , DE_COMM  , DE_DOT   , DE_MINS  , KC_RSFT  ,
-    MO(3)  , _______, KC_LCTL  , KC_LALT  ,KC_LGUI,LT(1,KC_SPC),MO(2),    LT(3 ,KC_ENT),LT(2,KC_BSPC),_______,KC_RGUI, _______ , KC_RALT  , _______
+    MO(3)  , MO(1), KC_LCTL  , KC_LALT  , KC_LGUI, KC_SPC,   MO(2),                         LT(3 ,KC_ENT),LT(2,KC_BSPC),_______,KC_RGUI, _______ , KC_RALT  , _______
   ),
 
-//  [1] = LAYOUT_universal(
+
+//  [1] = LAYOUT_universal(ö
 //    S(KC_ESC), S(KC_1)  , KC_LBRC  , S(KC_3)  , S(KC_4)  , S(KC_5)  ,                             KC_EQL   , S(KC_6)  ,S(KC_QUOT), S(KC_8)  , S(KC_9)  ,S(KC_INT1),
 //    S(KC_DEL), S(KC_Q)  , S(KC_W)  , S(KC_E)  , S(KC_R)  , S(KC_T)  ,                                  S(KC_Y)  , S(KC_U)  , S(KC_I)  , S(KC_O)  , S(KC_P)  ,S(KC_INT3),
 //    S(KC_TAB), S(KC_A)  , S(KC_S)  , S(KC_D)  , S(KC_F)  , S(KC_G)  ,                                  S(KC_H)  , S(KC_J)  , S(KC_K)  , S(KC_L)  , KC_QUOT  , S(KC_2)  ,
@@ -65,8 +68,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [3] = LAYOUT_universal(
     RGB_TOG  , _______  , _______  , _______  , _______  , _______  ,                                  KC_MPRV , KC_MPLY,    KC_MNXT, KC_MUTE, KC_VOLD , KC_VOLU ,
-    RGB_MOD  , RGB_HUI  , RGB_SAI  , RGB_VAI  , _______  , _______ ,                                   KC_HOME  , KC_PAGE_DOWN , KC_PAGE_UP,  KC_END  , KC_BRID,    KC_BRIU,
-    RGB_RMOD , RGB_HUD  , RGB_SAD  , RGB_VAD  , _______  , _______  ,                                  KC_LEFT,  KC_DOWN, KC_UP , KC_RGHT,  _______,    _______,
+    _______  ,RGB_MOD  , RGB_HUI  , RGB_SAI  , RGB_VAI  ,  _______ ,                                   KC_HOME  , KC_PAGE_DOWN , KC_PAGE_UP,  KC_END  , KC_BRID,    KC_BRIU,
+    _______  ,RGB_RMOD , RGB_HUD  , RGB_SAD  , RGB_VAD  , _______  ,                                  KC_LEFT,  KC_DOWN, KC_UP , KC_RGHT,  _______,    _______,
     _______  , _______  , SCRL_DVD , SCRL_DVI , SCRL_MO  , SCRL_TO  , EEP_RST  ,            EEP_RST  , _______  , _______  , _______  , _______ , _______ , _______  ,
      _______  ,CPI_D1K  , CPI_D100 , CPI_I100 , CPI_I1K  , KBC_SAVE , KBC_RST  ,            _______  , _______  , _______  , _______  , _______ , _______ , _______
   ),
@@ -80,11 +83,74 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+
+//fooker magic
+const rgblight_segment_t PROGMEM my_layer_caps[] = RGBLIGHT_LAYER_SEGMENTS(
+        {0, RGBLED_NUM, HSV_PURPLE}
+);
+
+const rgblight_segment_t PROGMEM my_layer_symbols[] = RGBLIGHT_LAYER_SEGMENTS(
+        {0, RGBLED_NUM, HSV_ORANGE}
+);
+
+const rgblight_segment_t PROGMEM my_layer_mouse[] = RGBLIGHT_LAYER_SEGMENTS(
+        {0, RGBLED_NUM, HSV_PINK}
+);
+
+const rgblight_segment_t PROGMEM my_layer_move[] = RGBLIGHT_LAYER_SEGMENTS(
+        {0, RGBLED_NUM, HSV_BLUE}
+);
+
+const rgblight_segment_t PROGMEM my_layer_conf[] = RGBLIGHT_LAYER_SEGMENTS(
+        {0, RGBLED_NUM, HSV_YELLOW}
+);
+
+const rgblight_segment_t* const PROGMEM my_layers[] = RGBLIGHT_LAYERS_LIST(
+    my_layer_caps,
+    my_layer_symbols,
+    my_layer_mouse,
+    my_layer_move,
+    my_layer_conf
+);
+
+void keyboard_post_init_user(void) {    // Enable the LED layers
+    rgblight_layers = my_layers;
+}
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(0, led_state.caps_lock);
+    return true;
+}
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // Auto enable scroll mode when the highest layer is 3
     keyball_set_scroll_mode(get_highest_layer(state) == 1);
+
+    rgblight_set_layer_state(1, layer_state_cmp(state, 1));
+    rgblight_set_layer_state(2, layer_state_cmp(state, 2));
+    rgblight_set_layer_state(3, layer_state_cmp(state, 3));
+    rgblight_set_layer_state(4, layer_state_cmp(state, 4));
     return state;
 }
+
+deferred_token mouse_layer_token = INVALID_DEFERRED_TOKEN;
+
+uint32_t mouse_layer_cb(uint32_t trigger_time, void *cb_arg) {
+    layer_off(2);
+    mouse_layer_token = INVALID_DEFERRED_TOKEN;
+    return 0;
+}
+
+report_mouse_t pointing_device_task_user(report_mouse_t report) {
+    if (report.x != 0 && report.y != 0) {
+        layer_on(2);
+	if (mouse_layer_token == INVALID_DEFERRED_TOKEN) {
+            mouse_layer_token = defer_exec(500, mouse_layer_cb, NULL);
+	} else {
+            extend_deferred_exec(mouse_layer_token, 500);
+        }
+    }
+    return report;
+}
+
 
 #ifdef OLED_ENABLE
 #    include "lib/oledkit/oledkit.h"
