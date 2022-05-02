@@ -141,7 +141,7 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 layer_state_t layer_state_set_user(layer_state_t state) {
-    keyball_set_scroll_mode(get_highest_layer(layer_state) == 1);
+    keyball_set_scroll_mode(get_highest_layer(state) == 1);
 
     rgblight_set_layer_state(1, layer_state_cmp(state, 1));
     rgblight_set_layer_state(2, layer_state_cmp(state, 2));
@@ -162,13 +162,16 @@ uint32_t mouse_layer_cb(uint32_t trigger_time, void *cb_arg) {
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
     if (report.x != 0 && report.y != 0) {
         layer_on(2);
-	if (mouse_layer_token == INVALID_DEFERRED_TOKEN || get_highest_layer(layer_state) != 5) {
-            mouse_layer_token = defer_exec(500, mouse_layer_cb, NULL);
-	} else {
-            extend_deferred_exec(mouse_layer_token, 500);
+        if (get_highest_layer (layer_state)!=5){
+            if (mouse_layer_token == INVALID_DEFERRED_TOKEN ) {
+                    mouse_layer_token = defer_exec(500, mouse_layer_cb, NULL);
+        	} else {
+                    extend_deferred_exec(mouse_layer_token, 500);
+                }
         }
     }
     return report;
+
 }
 
 
